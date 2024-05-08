@@ -1,0 +1,19 @@
+<div class="wrapper">
+    <div class="box">
+        <h2 class="fs-800 fw-medium">INICIO DE SESIÓN</h2>
+        <form>
+            <div class="input-box mt-3">
+                <img src="assets/user.svg" alt="user">
+                <input type="text" class="fs-600" placeholder="Nombre de usuario">
+            </div>
+            <!-- <span class="error">El nombre de usuario es requerido.</span> -->
+            <div class="input-box">
+                <img src="assets/key.svg" alt="user">
+                <input type="password" class="fs-600" placeholder="Contraseña">
+            </div>
+            <button class="mt-3 fs-700 fw-medium">Iniciar sesión <img *ngIf="false" src="../../assets/loader.svg" alt="loader"></button>
+            <!-- <span class="error">El nombre de usuario o la contraseña son incorrectos.</span> -->
+        </form>
+        <p class="fs-600 mt-1">No tienes una cuenta? <a>Registrate</a></p>
+    </div>
+</div>
