@@ -1,0 +1,42 @@
+.chat-list {
+    position: relative;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.friend {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 1rem;
+    padding: .7rem .5rem;
+    border-radius: 5rem 0 0 5rem;
+}
+
+.friend:not(:first-child) {
+    margin-top: .5rem;
+}
+
+.friend.focus {
+    background-color: #73c6b550;
+}
+
+.friend p {
+    margin-right: 4rem;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--clr-bttn);
+    border-radius: 50px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    cursor: pointer;
+}

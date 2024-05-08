@@ -1,0 +1,33 @@
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 90vh;
+    overflow: hidden;
+}
+
+.box {
+    display: flex;
+    width: 55%;
+    height: 85%;
+    background-color: #E8F6F3;
+    box-shadow: 5px 5px 4px 1px rgba(0, 0, 0, 0.3);
+    border-radius: 5rem;
+    padding: 4rem 2rem;
+}
+
+.break-line{
+    height: 100%;
+    width: 1px;
+    background-color: var(--clr-bttn);
+}
+
+.chat-list{
+    width: 30%;
+}
+
+.chat{
+    height: 100%;
+    width: 70%;
+}
