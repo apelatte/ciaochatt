@@ -1,0 +1,41 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+    width: 100vw;
+}
+
+.box {
+    background-color: var(--clr-secondary);
+    width: 30%;
+    height: 60%;
+    border-radius: 5rem;
+    box-shadow: 4px 4px 5px 1px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+h2 {
+    margin-top: 2rem;
+}
+
+a {
+    cursor: pointer;
+    color: var(--clr-hyperlink);
+    text-decoration: underline;
+    transition: all .3s ease-in;
+}
+
+a:hover {
+    opacity: .5;
+}
+
+button {
+    position: relative;
+}
+
+button img {
+    position: absolute;
+    top: 50%;
+    transform: translate(150%, -50%);
+}
