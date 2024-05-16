@@ -23,7 +23,7 @@
 
 .message {
     margin-inline: 1.5rem;
-    max-width: 80%;
+    max-width: 60%;
 }
 
 .message p.name {
@@ -62,7 +62,7 @@
     align-items: center;
     width: 85%;
     padding: .5rem 1rem;
-    border-radius: 20rem;
+    border-radius: 1rem;
     background-color: white;
     border: 1px solid var(--clr-bttn);
 }
