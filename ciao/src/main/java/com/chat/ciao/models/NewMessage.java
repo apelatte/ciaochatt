@@ -13,6 +13,7 @@ public class NewMessage implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
   private Chat chat;
+  @ManyToOne
   private User from;
   private Message message;
 

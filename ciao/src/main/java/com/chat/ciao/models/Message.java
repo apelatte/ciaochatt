@@ -14,7 +14,9 @@ public class Message implements Serializable {
   private long id;
   private String text;
   private Date time;
+  @ManyToOne
   private User from;
+  @ManyToOne
   private User to;
 
   public Message(){}
