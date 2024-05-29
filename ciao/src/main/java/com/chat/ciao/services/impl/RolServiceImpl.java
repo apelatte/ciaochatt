@@ -6,11 +6,18 @@ import com.chat.ciao.services.iRolService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RolServiceImpl implements iRolService {
 
   @Autowired
   private iRolDao rolDao;
+
+  @Override
+  public List<Rol> findAll() {
+    return this.rolDao.findAll();
+  }
 
   @Override
   public Rol findById(long id) {
