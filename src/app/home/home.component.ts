@@ -8,6 +8,8 @@ import { AuthService } from '../services/auth.service';
 })
 export class HomeComponent implements OnInit{
 
+  navInput: boolean = false;
+
   constructor(private authService: AuthService){}
 
   ngOnInit(): void {

@@ -1,5 +1,11 @@
 <div class="wrapper">
     <div class="box">
+        <nav class="chat-nav">
+            <img src="assets/add-friend.svg" alt="add" (click)="navInput = !navInput" *ngIf="!navInput">
+            <img src="assets/search.svg" alt="search" (click)="navInput = !navInput" *ngIf="!navInput">
+            <input type="text" *ngIf="navInput" (keyup.enter)="navInput = !navInput" autofocus>
+            <span *ngIf="navInput" class="close-input" (click)="navInput = !navInput">X</span>
+        </nav>
         <app-chat-list class="chat-list"></app-chat-list>
         <div class="break-line"></div>
         <app-chat class="chat"></app-chat>
