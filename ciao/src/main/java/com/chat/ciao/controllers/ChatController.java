@@ -51,17 +51,5 @@ public class ChatController {
     return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
   }
 
-  @GetMapping("/")
-  public ResponseEntity<?> getMyChats(Principal principal){
-    Map<String, Object> response = new HashMap<>();
-    try{
-      User myUser = this.userService.getByUsername(principal.getName());
-      List<Chat> chatList = this.chatService.findChatsByUser(myUser);
-      response.put("chatList", chatList);
-    } catch (Exception e){
-      response.put("error", e.getMessage());
-      return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
-    }
-    return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
-  }
+
 }

@@ -3,24 +3,20 @@ package com.chat.ciao.controllers;
 import com.chat.ciao.auth.AuthResponse;
 import com.chat.ciao.auth.LoginRequest;
 import com.chat.ciao.auth.RegisterRequest;
-import com.chat.ciao.dto.UserDTO;
 import com.chat.ciao.models.Rol;
-import com.chat.ciao.models.User;
 import com.chat.ciao.services.iAuthService;
 import com.chat.ciao.services.iRolService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/auth")
+@CrossOrigin(origins = {"http://localhost:4200"})
 public class AuthController {
 
   @Autowired

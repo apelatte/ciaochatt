@@ -9,7 +9,6 @@ public interface iChatService {
 
   List<Chat> findAll();
   Chat findById(long id);
-  List<Chat> findChatsByUser(User user);
   Chat save(Chat chat);
   void delete(Chat chat);
 }
