@@ -12,7 +12,7 @@ import java.util.List;
 
 @Table(name = "users")
 @Entity
-public class User implements Serializable, UserDetails {
+public class User implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,10 +20,13 @@ public class User implements Serializable, UserDetails {
   @Column(unique = true)
   private String username;
   private String password;
-  private boolean enable;
   private String avatar;
+  private boolean isEnabled;
+  private boolean accountNonExpired;
+  private boolean accountNonLocked;
+  private boolean credentialNonExpired;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   private Rol rol;
 
   @OneToMany
@@ -32,67 +35,24 @@ public class User implements Serializable, UserDetails {
     joinColumns = @JoinColumn(name = "user_id"),
     inverseJoinColumns = @JoinColumn(name = "friend_id")
   )
-  private List<User> friends;
 
+  private List<User> friends;
   @ManyToMany
   @JoinTable(
     name = "chats_participants",
     joinColumns = @JoinColumn(name = "participant_id"),
     inverseJoinColumns = @JoinColumn(name = "chat_id")
   )
+
   private List<Chat> chats;
 
   public User() {
-    this.friends = new ArrayList<User>();
   }
 
   public User(String username, String password, String avatar) {
     this.username = username;
     this.password = password;
     this.avatar = avatar;
-  }
-
-  public User(String username, String password, boolean enable, String avatar, Rol rol) {
-    this.username = username;
-    this.password = password;
-    this.enable = enable;
-    this.avatar = avatar;
-    this.rol = rol;
-    this.friends = new ArrayList<>();
-    this.chats = new ArrayList<>();
-  }
-
-  public User(String username, String password, boolean enable, String avatar, Rol rol, List<User> friends, List<Chat> chats) {
-    this.username = username;
-    this.password = password;
-    this.enable = enable;
-    this.avatar = avatar;
-    this.rol = rol;
-    this.friends = friends;
-    this.chats = chats;
-  }
-
-  @Override
-  public boolean isAccountNonExpired() { return true; }
-
-  @Override
-  public boolean isAccountNonLocked() {
-    return true;
-  }
-
-  @Override
-  public boolean isCredentialsNonExpired() {
-    return true;
-  }
-
-  @Override
-  public boolean isEnabled() {
-    return true;
-  }
-
-  @Override
-  public Collection<? extends GrantedAuthority> getAuthorities() {
-    return List.of(new SimpleGrantedAuthority(rol.getRolName()));
   }
 
   public long getId() {
@@ -119,20 +79,44 @@ public class User implements Serializable, UserDetails {
     this.password = password;
   }
 
-  public boolean isEnable() {
-    return enable;
-  }
-
-  public void setEnable(boolean enable) {
-    this.enable = enable;
-  }
-
   public String getAvatar() {
     return avatar;
   }
 
   public void setAvatar(String avatar) {
     this.avatar = avatar;
+  }
+
+  public boolean isEnabled() {
+    return isEnabled;
+  }
+
+  public void setEnabled(boolean enabled) {
+    isEnabled = enabled;
+  }
+
+  public boolean isAccountNonExpired() {
+    return accountNonExpired;
+  }
+
+  public void setAccountNonExpired(boolean accountNonExpired) {
+    this.accountNonExpired = accountNonExpired;
+  }
+
+  public boolean isAccountNonLocked() {
+    return accountNonLocked;
+  }
+
+  public void setAccountNonLocked(boolean accountNonLocked) {
+    this.accountNonLocked = accountNonLocked;
+  }
+
+  public boolean isCredentialNonExpired() {
+    return credentialNonExpired;
+  }
+
+  public void setCredentialNonExpired(boolean credentialNonExpired) {
+    this.credentialNonExpired = credentialNonExpired;
   }
 
   public Rol getRol() {

@@ -2,6 +2,7 @@ package com.chat.ciao.services.impl;
 
 import com.chat.ciao.dao.iRolDao;
 import com.chat.ciao.models.Rol;
+import com.chat.ciao.models.RolEnum;
 import com.chat.ciao.services.iRolService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,8 +26,8 @@ public class RolServiceImpl implements iRolService {
   }
 
   @Override
-  public Rol findByRolName(String rolName) {
-    return this.rolDao.findByRolName(rolName).orElse(null);
+  public Rol findByRolEnum(RolEnum rolEnum) {
+    return this.rolDao.findByRolEnum(rolEnum).orElse(null);
   }
 
   @Override

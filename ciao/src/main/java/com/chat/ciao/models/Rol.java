@@ -14,12 +14,18 @@ public class Rol implements Serializable {
   private long id;
 
   @Column(unique = true)
-  private String rolName;
+  @Enumerated(EnumType.STRING)
+  private RolEnum rolEnum;
 
   public Rol(){}
 
-  public Rol(String rolName) {
-    this.rolName = rolName;
+  public Rol(long id, RolEnum rolEnum) {
+    this.id = id;
+    this.rolEnum = rolEnum;
+  }
+
+  public Rol(RolEnum rolEnum) {
+    this.rolEnum = rolEnum;
   }
 
   public long getId() {
@@ -30,11 +36,11 @@ public class Rol implements Serializable {
     this.id = id;
   }
 
-  public String getRolName() {
-    return rolName;
+  public RolEnum getRolEnum() {
+    return rolEnum;
   }
 
-  public void setRolName(String rolName) {
-    this.rolName = rolName;
+  public void setRolEnum(RolEnum rolEnum) {
+    this.rolEnum = rolEnum;
   }
 }

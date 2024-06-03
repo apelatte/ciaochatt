@@ -15,4 +15,8 @@ export class HomeComponent implements OnInit{
   ngOnInit(): void {
     if(!this.authService.getToken()) this.authService.logout();
   }
+
+  toogleNavInput(){
+    this.navInput = !this.navInput;
+  }
 }

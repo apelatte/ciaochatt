@@ -1,6 +1,7 @@
 package com.chat.ciao.controllers;
 
 import com.chat.ciao.models.Rol;
+import com.chat.ciao.models.RolEnum;
 import com.chat.ciao.models.User;
 import com.chat.ciao.services.iRolService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,11 +47,11 @@ public class RolController {
     return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
   }
 
-  @GetMapping("/{name}")
-  public ResponseEntity<?> getRolByName(@PathVariable("name") String rolName){
+  @GetMapping("/{rolEnum}")
+  public ResponseEntity<?> getRolByName(@PathVariable("rolEnum") RolEnum rolEnum){
     Map<String, Object> response = new HashMap<>();
     try {
-      Rol rol = this.rolService.findByRolName(rolName);
+      Rol rol = this.rolService.findByRolEnum(rolEnum);
       response.put("rol", rol);
     } catch (Exception e) {
       response.put("error", e.getMessage());
@@ -60,10 +61,10 @@ public class RolController {
   }
 
   @PostMapping("/create")
-  public ResponseEntity<?> createRol(@RequestBody String rolName){
+  public ResponseEntity<?> createRol(@RequestBody RolEnum rolEnum){
     Map<String, Object> response = new HashMap<>();
     try {
-      Rol rol = this.rolService.save(new Rol(rolName));
+      Rol rol = this.rolService.save(new Rol(rolEnum));
       response.put("rol", rol);
     } catch (Exception e) {
       response.put("error", e.getMessage());

@@ -1,12 +1,16 @@
 package com.chat.ciao.controllers;
 
+import com.chat.ciao.models.Chat;
 import com.chat.ciao.models.User;
 import com.chat.ciao.services.iUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,6 +43,20 @@ public class UserController {
     try {
       User user = this.userSvc.getById(id);
       response.put("user", user);
+    } catch (Exception e) {
+      response.put("error", e.getMessage());
+      return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+    }
+    return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+  }
+
+  @GetMapping("/chats")
+  public ResponseEntity<?> getChats(){
+    Map<String, Object> response = new HashMap<>();
+    try {
+      User user = this.userSvc.getByUsername("Luis Suarez");
+      List<Chat> chatList = user.getChats();
+      response.put("chatList", chatList);
     } catch (Exception e) {
       response.put("error", e.getMessage());
       return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
