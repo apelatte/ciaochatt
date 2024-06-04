@@ -26,7 +26,7 @@ export class LoginComponent {
       this.loginRequest = this.myForm.value;
       this.authService.login(this.loginRequest).subscribe({
         next: (res) => {
-          this.authService.setToken(res.token.token)
+          this.authService.setToken(res.token)
           this.router.navigate(["/"]);
         }
       });

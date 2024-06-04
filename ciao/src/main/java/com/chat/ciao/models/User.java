@@ -1,5 +1,6 @@
 package com.chat.ciao.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,6 +20,7 @@ public class User implements Serializable {
   private long id;
   @Column(unique = true)
   private String username;
+  @JsonIgnore
   private String password;
   private String avatar;
   private boolean isEnabled;

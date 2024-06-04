@@ -1,42 +1,6 @@
 <div class="chat-list">
-    <div class="friend focus">
-        <img src="../../assets/Avatar1.svg" alt="Avatar">
-        <p class="fs-700">Martin Lopez</p>
-    </div>
-    <div class="friend">
-        <img src="../../assets/Avatar2.svg" alt="Avatar">
-        <p class="fs-700">Julia Benedetti</p>
-    </div>
-    <div class="friend">
-        <img src="../../assets/Avatar3.svg" alt="Avatar">
-        <p class="fs-700">Agos Taro</p>
-    </div>
-    <div class="friend">
-        <img src="../../assets/Avatar4.svg" alt="Avatar">
-        <p class="fs-700">Florencia Tux</p>
-    </div>
-    <div class="friend">
-        <img src="../../assets/Avatar5.svg" alt="Avatar">
-        <p class="fs-700">Ro Comilo</p>
-    </div>
-    <div class="friend">
-        <img src="../../assets/Avatar6.svg" alt="Avatar">
-        <p class="fs-700">Dani Bodil</p>
-    </div>
-    <div class="friend">
-        <img src="../../assets/Avatar7.svg" alt="Avatar">
-        <p class="fs-700">Ulises Gratto</p>
-    </div>
-    <div class="friend">
-        <img src="../../assets/Avatar8.svg" alt="Avatar">
-        <p class="fs-700">Omar Funes</p>
-    </div>
-    <div class="friend">
-        <img src="../../assets/Avatar9.svg" alt="Avatar">
-        <p class="fs-700">Paula Chaves</p>
-    </div>
-    <div class="friend">
-        <img src="../../assets/Avatar10.svg" alt="Avatar">
-        <p class="fs-700">Nico Jota</p>
+    <div *ngFor="let friend of friends" class="friend focus">
+        <img [src]="'../../assets/' + friend.avatar + '.svg'" alt="Avatar">
+        <p class="fs-700">{{friend.username + ''| titlecase}}</p>
     </div>
 </div>

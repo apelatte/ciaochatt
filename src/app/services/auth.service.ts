@@ -21,7 +21,7 @@ export class AuthService {
   }
 
   register(registerRequest: RegisterRequest): Observable<any> {
-    return this.http.post(`${this.endpoint}/register`, registerRequest);
+    return this.http.post(`${this.endpoint}/sign-up`, registerRequest);
   }
 
   setToken(token: String): void {
