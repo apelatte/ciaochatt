@@ -1,10 +1,10 @@
 <div class="wrapper">
     <div class="box">
         <nav class="chat-nav">
-            <img src="assets/add-friend.svg" alt="add" (click)="toogleNavInput('add')" *ngIf="!navInput">
-            <img src="assets/search.svg" alt="search" (click)="toogleNavInput('search')" *ngIf="!navInput">
+            <img src="assets/add-friend.svg" alt="add" (click)="toogleNavInput(true)" *ngIf="!navInput">
+            <img src="assets/search.svg" alt="search" (click)="toogleNavInput(false)" *ngIf="!navInput">
             <input type="text" placeholder="Ingrese el nombre de usuario" *ngIf="navInput" (keyup.enter)="submitInput(data)" #data autofocus>
-            <span *ngIf="navInput" class="close-input" (click)="toogleNavInput('')">X</span>
+            <span *ngIf="navInput" class="close-input" (click)="toogleNavInput(false)">X</span>
         </nav>
         <app-chat-list class="chat-list"></app-chat-list>
         <div class="break-line"></div>

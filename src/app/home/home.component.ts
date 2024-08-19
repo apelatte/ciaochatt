@@ -10,7 +10,7 @@ import { UserService } from '../services/user.service';
 export class HomeComponent implements OnInit{
 
   navInput: boolean = false;
-  inputMode!: String;
+  addFriend: boolean = false;
 
   constructor(private authService: AuthService, private userService: UserService){}
 
@@ -18,18 +18,18 @@ export class HomeComponent implements OnInit{
     if(!this.authService.getToken()) this.authService.logout();
   }
 
-  toogleNavInput(inputMode: String){
+  toogleNavInput(mode: boolean){
     this.navInput = !this.navInput;
-    this.inputMode = inputMode;
+    this.addFriend = mode;
   }
 
   submitInput(data: any){
     let friendUsername = data.value
     this.navInput = !this.navInput;
-    if(this.inputMode == 'add') 
+    if(this.addFriend) 
       this.userService.addFriend(friendUsername).subscribe({
         next: (res) => {
-          console.log(res);
+          this.userService.updateFriendList(res.friendList);
         }
       })
     

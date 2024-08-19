@@ -37,15 +37,14 @@ public class User implements Serializable {
     joinColumns = @JoinColumn(name = "user_id"),
     inverseJoinColumns = @JoinColumn(name = "friend_id")
   )
-
   private List<User> friends;
+
   @ManyToMany
   @JoinTable(
     name = "chats_participants",
     joinColumns = @JoinColumn(name = "participant_id"),
     inverseJoinColumns = @JoinColumn(name = "chat_id")
   )
-
   private List<Chat> chats;
 
   public User() {

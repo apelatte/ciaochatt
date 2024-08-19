@@ -95,7 +95,7 @@ public class UserController {
     Map<String, Object> response = new HashMap<>();
     try {
       User myUser = this.userSvc.getByUsername(principal.getName());
-      User newFriend = this.userSvc.getByUsername(friendUsername);
+      User newFriend = this.userSvc.getByUsername(friendUsername.toLowerCase().trim());
       myUser.getFriends().add(newFriend);
       myUser = this.userSvc.save(myUser);
       response.put("friendList", myUser.getFriends());
