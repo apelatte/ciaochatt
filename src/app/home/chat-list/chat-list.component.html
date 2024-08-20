@@ -1,5 +1,5 @@
 <div class="chat-list">
-    <div *ngFor="let friend of friends" class="friend focus">
+    <div *ngFor="let friend of friends" class="friend" [class.focus]="friend == focus" (click)="setNewFocus(friend)">
         <img [src]="'../../assets/' + friend.avatar + '.svg'" alt="Avatar">
         <p class="fs-700">{{friend.username + ''| titlecase}}</p>
     </div>
