@@ -9,13 +9,13 @@ import { User } from '../models/User';
 })
 export class ChatService {
 
-  private endpoint: String = "http://localhost:8080/api/users"
+  private endpoint: String = "http://localhost:8080/api/chat"
   private chatFocus = new Subject<User>();
 
   constructor(private http: HttpClient) { }
 
   getMyChats(): Observable<any> {
-    return this.http.get<Array<Chat>>(`${this.endpoint}/chats`);
+    return this.http.get<Array<Chat>>(`${this.endpoint}/my-chats`);
   }
 
   setChatFocus(user: User): void {

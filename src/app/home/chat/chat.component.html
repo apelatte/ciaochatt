@@ -1,13 +1,13 @@
 <div class="wrapper">
     <form class="chat">
-        <div class="message-list">
-            <div class="message">
+        <div class="message-list" *ngIf="currentChat">
+            <div *ngFor="let message of currentChat.messages" class="message">
                 <p class="fw-light name">Martin</p>
                 <div class="text">
                     <p>Hola Pedro, como estás?</p>
                 </div>
             </div>
-            <div class="my message">
+            <!-- <div class="my message">
                 <p class="fw-light name">Tú</p>
                 <div class="text">
                     <p>Hola Martin, bien y vos?</p>
@@ -54,10 +54,10 @@
                 <div class="text">
                     <p>Ah que bueno! Si, he hecho lo que había que hacer para el lunes, necesitas ayuda?</p>
                 </div>
-            </div>
+            </div> -->
         </div>
         <div class="input-box">
-            <span class="typing fw-light">Martin esta escribiendo...</span>
+            <!-- <span class="typing fw-light">Martin esta escribiendo...</span> -->
             <input type="text" class="fw-light fs-500" placeholder="Escribe tu mensaje...">
             <img src="../../../assets/send.svg" alt="send">
         </div>

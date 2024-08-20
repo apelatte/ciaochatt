@@ -26,6 +26,11 @@ public class ChatServiceImpl implements iChatService {
   }
 
   @Override
+  public List<Chat> findAllByUserId(long id) {
+    return this.chatDao.findAllByParticipantsId(id).orElse(null);
+  }
+
+  @Override
   public Chat save(Chat chat) {
     return this.chatDao.save(chat);
   }
