@@ -4,7 +4,7 @@ import { User } from "./User";
 export class Chat{
     id!: number;
     last_update!: Date;
-    participants!: Array<User>;
+    friend!: User;
     messages!: Array<Message>;
     newMessages!: Array<Message>;
 }

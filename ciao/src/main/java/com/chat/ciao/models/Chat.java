@@ -31,6 +31,12 @@ public class Chat implements Serializable {
     this.newMessages = new ArrayList<NewMessage>();
   }
 
+  public Chat(List<User> participants) {
+    this.participants = participants;
+    this.messages = new ArrayList<Message>();
+    this.newMessages = new ArrayList<NewMessage>();
+  }
+
   public long getId() {
     return id;
   }

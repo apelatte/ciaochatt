@@ -31,7 +31,7 @@ public class User implements Serializable {
   @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   private Rol rol;
 
-  @OneToMany
+  @OneToMany(fetch = FetchType.LAZY)
   @JoinTable(
     name = "users_friends",
     joinColumns = @JoinColumn(name = "user_id"),
@@ -39,7 +39,7 @@ public class User implements Serializable {
   )
   private List<User> friends;
 
-  @ManyToMany
+  @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(
     name = "chats_participants",
     joinColumns = @JoinColumn(name = "participant_id"),

@@ -17,28 +17,7 @@ export class ChatComponent implements OnInit {
   constructor(private chatService: ChatService) { }
 
   ngOnInit() {
-    this.getChats();
-    this.getFocus();
+    
   }
 
-  getChats() {
-    this.chatService.getMyChats().subscribe({
-      next: (res) => {
-        this.myChats = res.chatList;
-      }
-    })
-  }
-
-  getFocus() {
-    this.chatService.getChatFocus().subscribe({
-      next: (userFocus) => {
-        this.focus = userFocus;
-        this.setFocusChat(this.focus);
-      }
-    });
-  }
-
-  setFocusChat(userFocus: User) {
-    this.currentChat = this.myChats.find(chat => chat.participants.includes(userFocus))!;
-  }
 }

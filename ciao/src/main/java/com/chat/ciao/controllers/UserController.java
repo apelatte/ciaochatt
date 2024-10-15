@@ -3,6 +3,7 @@ package com.chat.ciao.controllers;
 import com.chat.ciao.dto.UserDTO;
 import com.chat.ciao.models.Chat;
 import com.chat.ciao.models.User;
+import com.chat.ciao.services.iChatService;
 import com.chat.ciao.services.iUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,9 @@ public class UserController {
 
   @Autowired
   private iUserService userSvc;
+
+  @Autowired
+  private iChatService chatService;
 
   @GetMapping("/getAll")
   public ResponseEntity<?> getAllUsers() {
@@ -97,7 +101,14 @@ public class UserController {
       User myUser = this.userSvc.getByUsername(principal.getName());
       User newFriend = this.userSvc.getByUsername(friendUsername.toLowerCase().trim());
       myUser.getFriends().add(newFriend);
+
+      Chat newChat = new Chat(List.of(myUser, newFriend));
+      this.chatService.save(newChat);
+      myUser.getChats().add(newChat);
+      newFriend.getChats().add(newChat);
+
       myUser = this.userSvc.save(myUser);
+      this.userSvc.save(newFriend);
       response.put("friendList", myUser.getFriends());
     } catch (Exception e) {
       response.put("error", e.getMessage());

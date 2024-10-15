@@ -1,5 +1,6 @@
 package com.chat.ciao.controllers;
 
+import com.chat.ciao.dto.ChatDTO;
 import com.chat.ciao.models.Chat;
 import com.chat.ciao.models.User;
 import com.chat.ciao.services.iChatService;
@@ -43,7 +44,7 @@ public class ChatController {
     Map<String, Object> response = new HashMap<>();
     try{
       User myUser = this.userService.getByUsername(principal.getName());
-      List<Chat> chats = this.chatService.findAllByUserId(myUser.getId());
+      List<ChatDTO> chats = this.chatService.findAllByUserId(myUser.getId());
       response.put("chatList", chats);
     } catch (Exception e){
       response.put("error", e.getMessage());

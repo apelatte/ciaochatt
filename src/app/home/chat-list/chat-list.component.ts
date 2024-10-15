@@ -12,44 +12,25 @@ import { ChatService } from '../../services/chat.service';
 export class ChatListComponent implements OnInit {
 
   chatList!: Array<Chat>;
-  friends!: Array<User>;
-  focus!: User;
+  focus!: Chat;
 
-  constructor(private userService: UserService, private chatService: ChatService) { }
+  constructor(private chatService: ChatService) { }
 
   ngOnInit(): void {
-    this.getFriends();
-    this.userService.getFriendList().subscribe({
-      next: (res) => {
-        this.friends = res;
-        this.setFocusChat();
-      }
-    });
-    this.getFocusChat();
+    this.getMyChats();
   }
 
-  getFriends() {
-    this.userService.getFriends().subscribe({
+  getMyChats(): void {
+    this.chatService.getMyChats().subscribe({
       next: (res) => {
-        this.userService.updateFriendList(res.friends);
+        this.chatList = res.chatList
+        this.focus = this.chatList.at(0)!;
       }
     });
   }
 
-  setFocusChat(): void {
-    if(this.friends.length > 0) this.chatService.setChatFocus(this.friends.at(0)!);
-  }
-
-  setNewFocus(user: User) {
-    this.chatService.setChatFocus(user);
-  }
-
-  getFocusChat(){
-    this.chatService.getChatFocus().subscribe({
-      next: (res) => {
-        this.focus = res;
-      }
-    })
+  setNewFocus(chat: Chat): void {
+    this.chatService.setChatFocus(chat);
   }
 
 }

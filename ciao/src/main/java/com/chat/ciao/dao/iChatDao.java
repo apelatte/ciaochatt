@@ -12,4 +12,5 @@ import java.util.Optional;
 public interface iChatDao extends JpaRepository<Chat, Long> {
 
   Optional<List<Chat>> findAllByParticipantsId(long userId);
+  Optional<Chat> findByParticipants(List<User> participants);
 }

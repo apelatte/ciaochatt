@@ -21,14 +21,16 @@ public class CiaoChattApplication {
 		SpringApplication.run(CiaoChattApplication.class, args);
 	}
 
-//  @Bean
-//  CommandLineRunner init(){
-//    return args -> {
-//      Rol adminRol = new Rol(RolEnum.ADMIN);
-//      Rol userRol = new Rol(RolEnum.USER);
-//      Rol invitedRol = new Rol(RolEnum.INVITED);
-//      Rol developerRol = new Rol(RolEnum.DEVELOPER);
-//      this.rolDao.saveAll(List.of(adminRol, userRol, invitedRol, developerRol));
-//    };
-//  }
+  @Bean
+  CommandLineRunner init(){
+    return args -> {
+      if(rolDao.count() == 0) {
+        Rol adminRol = new Rol(RolEnum.ADMIN);
+        Rol userRol = new Rol(RolEnum.USER);
+        Rol invitedRol = new Rol(RolEnum.INVITED);
+        Rol developerRol = new Rol(RolEnum.DEVELOPER);
+        this.rolDao.saveAll(List.of(adminRol, userRol, invitedRol, developerRol));
+      }
+    };
+  }
 }
