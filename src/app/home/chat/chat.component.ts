@@ -14,6 +14,7 @@ export class ChatComponent implements OnInit {
 
   @Input() myUser!: User;
   currentChat!: Chat;
+  friend!: User;
 
   constructor(private chatService: ChatService) { }
 
@@ -30,13 +31,17 @@ export class ChatComponent implements OnInit {
       next: (chat) => {
         if (chat && chat.id) {
           this.currentChat = chat;
-          console.log(this.currentChat);
+          this.friend = this.currentChat.participants.find(user => user.id != this.myUser.id)!;
           this.chatService.connect().then(() => {
             this.chatService.joinRoom(chat.id);
           });
         }
       }
     });
+  }
+
+  setFriend(): void {
+
   }
 
   sendMessage(element: any): void {
@@ -52,5 +57,10 @@ export class ChatComponent implements OnInit {
     } as Message;
     this.chatService.sendMessage(this.currentChat.id, newMessage);
     element.value = ""
+  }
+
+  getMessageAuthor(message: Message): string {
+    const author: String = message.fromID == this.myUser.id ? this.myUser.username : this.friend.username;
+    return author as string;
   }
 }

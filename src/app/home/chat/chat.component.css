@@ -36,6 +36,10 @@
     width: 100%;
 }
 
+.sequence{
+    margin-top: .5rem;
+}
+
 .text p {
     background-color: var(--clr-neutral);
     min-width: 5rem;

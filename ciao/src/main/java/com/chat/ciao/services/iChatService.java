@@ -14,4 +14,5 @@ public interface iChatService {
   Chat findByParticipants(List<User> participants);
   Chat save(Chat chat);
   void delete(Chat chat);
+  ChatDTO mapToDTO(Chat chat);
 }

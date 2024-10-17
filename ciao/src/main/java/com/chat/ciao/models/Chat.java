@@ -19,7 +19,7 @@ public class Chat implements Serializable {
   @ManyToMany(mappedBy = "chats")
   private List<User> participants;
 
-  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   private List<Message> messages;
 
   public Chat(){

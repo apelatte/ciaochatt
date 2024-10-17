@@ -40,6 +40,7 @@ public class WebSocketController {
       User myUser = this.userService.getById(message.getFromID());
       User friend = this.userService.getById(message.getToID());
       Chat currentChat = this.chatService.findById(message.getChatID());
+
       Message newMessage = new Message();
       newMessage.setText(message.getText());
       newMessage.setFrom(myUser);
@@ -48,8 +49,10 @@ public class WebSocketController {
 
       currentChat.getMessages().add(newMessage);
       currentChat = this.chatService.save(currentChat);
-      response.put("chat", currentChat);
 
+      ChatDTO chatDTO = this.chatService.mapToDTO(currentChat);
+
+      response.put("chat", chatDTO);
     } catch (Exception e){
       response.put("error", e.getMessage());
       return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);

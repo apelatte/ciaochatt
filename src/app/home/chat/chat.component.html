@@ -1,10 +1,12 @@
 <div class="wrapper">
     <form class="chat">
         <div class="message-list" *ngIf="currentChat">
-            <div *ngFor="let message of currentChat.messages" class="message">
-                <p class="fw-light name">Martin</p>
-                <div class="text">
-                    <p>Hola Pedro, como estás?</p>
+            <div *ngFor="let message of currentChat.messages; let i = index" class="message"
+                [class.my]="message.fromID == myUser.id">
+                <p class="fw-light name" *ngIf="i === 0 || message.fromID !== currentChat.messages[i - 1].fromID"> <!-- //Only show the author if it is the first in the sequence -->
+                    {{getMessageAuthor(message) | titlecase}}</p>
+                <div class="text" [class.sequence]="i != 0 && message.fromID == currentChat.messages[i - 1].fromID">
+                    <p>{{message.text}}</p>
                 </div>
             </div>
             <!-- <div class="my message">
@@ -58,7 +60,8 @@
         </div>
         <div class="input-box">
             <!-- <span class="typing fw-light">Martin esta escribiendo...</span> -->
-            <input type="text" class="fw-light fs-500" placeholder="Escribe tu mensaje..." (keyup.enter)="sendMessage(message)"  #message>
+            <input type="text" class="fw-light fs-500" placeholder="Escribe tu mensaje..."
+                (keyup.enter)="sendMessage(message)" #message>
             <img src="../../../assets/send.svg" alt="send" (click)="sendMessage(message)">
         </div>
     </form>
