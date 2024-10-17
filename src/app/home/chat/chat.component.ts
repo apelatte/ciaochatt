@@ -19,7 +19,7 @@ export class ChatComponent implements OnInit {
 
   ngOnInit() {
     this.initChat();
-  } 
+  }
 
   initChat(): void {
     this.getChatFocus();
@@ -42,10 +42,11 @@ export class ChatComponent implements OnInit {
   sendMessage(element: any): void {
     console.log(this.myUser.id);
     const message: String = element.value;
+    const friend: User = this.currentChat.participants.filter(el => el.id != this.myUser.id).at(0)!;
     const newMessage: Message = {
       text: message,
       fromID: this.myUser.id,
-      toID: this.currentChat.friend.id,
+      toID: friend.id,
       chatID: this.currentChat.id,
       time: new Date()
     } as Message;

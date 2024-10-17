@@ -27,19 +27,6 @@ public class MessageController {
   @Autowired
   private iChatService chatService;
 
-  @GetMapping("/chat/{id}")
-  public ResponseEntity<?> getMessagesByChatId(@PathVariable("id") long chatId){
-    Map<String, Object> response = new HashMap<>();
-    try {
-      List<Message> messageList = this.messageService.findAllByChat(chatId);
-      response.put("messageList", messageList);
-    } catch (Exception e) {
-      response.put("error", e.getMessage());
-      return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
-    }
-    return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
-  }
-
   @PostMapping("/chat")
   public ResponseEntity<?> sendMessage(@RequestBody Message message){
     Map<String, Object> response = new HashMap<>();

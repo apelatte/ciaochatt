@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Chat } from '../../models/Chat';
-import { UserService } from '../../services/user.service';
-import { User } from '../../models/User';
 import { ChatService } from '../../services/chat.service';
+import { User } from '../../models/User';
 
 @Component({
   selector: 'app-chat-list',
@@ -11,6 +10,7 @@ import { ChatService } from '../../services/chat.service';
 })
 export class ChatListComponent implements OnInit {
 
+  @Input() myUser!: User;
   chatList!: Array<Chat>;
   focus!: Chat;
 
@@ -45,4 +45,13 @@ export class ChatListComponent implements OnInit {
     this.chatService.setChatFocus(chat);
   }
 
+  getAvatarURL(chat: any): string | null {
+    const participant = chat.participants.find((el: Chat) => el.id != this.myUser.id);
+    return participant ? `../../assets/${participant.avatar}.svg` : '../../assets/avatar1.svg';
+  }
+
+  getFriendUsername(chat: any): string | null { 
+    const participant: User = chat.participants.find((el: Chat) => el.id != this.myUser.id);
+    return participant ? `${participant.username}` : null;
+  }
 }

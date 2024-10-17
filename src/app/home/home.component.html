@@ -6,7 +6,7 @@
             <input type="text" placeholder="Ingrese el nombre de usuario" *ngIf="navInput" (keyup.enter)="submitInput(data)" #data autofocus>
             <span *ngIf="navInput" class="close-input" (click)="toogleNavInput(false)">X</span>
         </nav>
-        <app-chat-list class="chat-list"></app-chat-list>
+        <app-chat-list class="chat-list" [myUser]="myUser"></app-chat-list>
         <div class="break-line"></div>
         <app-chat class="chat" [myUser]="myUser"></app-chat>
     </div>

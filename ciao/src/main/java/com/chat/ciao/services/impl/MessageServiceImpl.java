@@ -21,11 +21,6 @@ public class MessageServiceImpl implements iMessageService {
   }
 
   @Override
-  public List<Message> findAllByChat(long chatID) {
-    return this.messageDao.findByChatId(chatID).orElse(null);
-  }
-
-  @Override
   public Message findById(long id) {
     return this.messageDao.findById(id).orElse(null);
   }

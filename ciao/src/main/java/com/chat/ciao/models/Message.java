@@ -18,8 +18,6 @@ public class Message implements Serializable {
   private User from;
   @ManyToOne
   private User to;
-  @ManyToOne
-  private Chat chat;
 
   public Message(){}
 
@@ -30,13 +28,12 @@ public class Message implements Serializable {
     this.to = to;
   }
 
-  public Message(long id, String text, Date time, User from, User to, Chat chat) {
+  public Message(long id, String text, Date time, User from, User to) {
     this.id = id;
     this.text = text;
     this.time = time;
     this.from = from;
     this.to = to;
-    this.chat = chat;
   }
 
   public long getId() {
@@ -77,13 +74,5 @@ public class Message implements Serializable {
 
   public void setTo(User to) {
     this.to = to;
-  }
-
-  public Chat getChat() {
-    return chat;
-  }
-
-  public void setChat(Chat chat) {
-    this.chat = chat;
   }
 }

@@ -12,11 +12,12 @@ public class ChatDTO {
 
   private long id;
   private Date last_update;
-  private UserDTO friend;
+  private List<UserDTO> participants;
   private List<MessageDTO> messages;
 
   public ChatDTO() {
     this.messages = new ArrayList<>();
+    this.participants = new ArrayList<>();
   }
 
   public long getId() {
@@ -35,12 +36,12 @@ public class ChatDTO {
     this.last_update = last_update;
   }
 
-  public UserDTO getFriend() {
-    return friend;
+  public List<UserDTO> getParticipants() {
+    return participants;
   }
 
-  public void setFriend(UserDTO friend) {
-    this.friend = friend;
+  public void setParticipants(List<UserDTO> participants) {
+    this.participants = participants;
   }
 
   public List<MessageDTO> getMessages() {

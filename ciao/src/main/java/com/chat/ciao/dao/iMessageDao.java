@@ -10,5 +10,4 @@ import java.util.Optional;
 @Repository
 public interface iMessageDao extends JpaRepository<Message, Long> {
 
-  Optional<List<Message>> findByChatId(long id);
 }

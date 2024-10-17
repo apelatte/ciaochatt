@@ -35,7 +35,7 @@ public class ChatServiceImpl implements iChatService {
     List<ChatDTO> chatDTOS = new ArrayList<>();
     if(chatList != null)
       chatList.forEach(chat -> {
-        chatDTOS.add(mapToDTO(chat, id));
+        chatDTOS.add(mapToDTO(chat));
       });
     return chatDTOS;
   }
@@ -55,7 +55,7 @@ public class ChatServiceImpl implements iChatService {
     this.chatDao.delete(chat);
   }
 
-  private ChatDTO mapToDTO(Chat chat, Long myID){
+  private ChatDTO mapToDTO(Chat chat){
     ChatDTO chatDTO = new ChatDTO();
     chatDTO.setId(chat.getId());
     chat.setLast_update(chat.getLast_update());
@@ -69,13 +69,11 @@ public class ChatServiceImpl implements iChatService {
     });
 
     chat.getParticipants().forEach(participant -> {
-      if(participant.getId() != myID){
         UserDTO userDTO = new UserDTO();
         userDTO.setId(participant.getId());
         userDTO.setAvatar(participant.getAvatar());
         userDTO.setUsername(participant.getUsername());
-        chatDTO.setFriend(userDTO);
-      }
+        chatDTO.getParticipants().add(userDTO);
     });
 
     return chatDTO;

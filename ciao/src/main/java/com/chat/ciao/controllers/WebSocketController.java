@@ -1,5 +1,6 @@
 package com.chat.ciao.controllers;
 
+import com.chat.ciao.dto.ChatDTO;
 import com.chat.ciao.dto.MessageDTO;
 import com.chat.ciao.models.Chat;
 import com.chat.ciao.models.Message;
@@ -43,11 +44,12 @@ public class WebSocketController {
       newMessage.setText(message.getText());
       newMessage.setFrom(myUser);
       newMessage.setTo(friend);
-      newMessage.setChat(currentChat);
       newMessage.setTime(message.getTime());
-      newMessage = this.messageService.save(newMessage);
 
-      response.put("message", message);
+      currentChat.getMessages().add(newMessage);
+      currentChat = this.chatService.save(currentChat);
+      response.put("chat", currentChat);
+
     } catch (Exception e){
       response.put("error", e.getMessage());
       return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
