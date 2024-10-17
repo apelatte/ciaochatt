@@ -19,22 +19,17 @@ public class Chat implements Serializable {
   @ManyToMany(mappedBy = "chats")
   private List<User> participants;
 
-  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<Message> messages;
-
-  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-  private List<NewMessage> newMessages;
 
   public Chat(){
     this.participants = new ArrayList<User>();
     this.messages = new ArrayList<Message>();
-    this.newMessages = new ArrayList<NewMessage>();
   }
 
   public Chat(List<User> participants) {
     this.participants = participants;
     this.messages = new ArrayList<Message>();
-    this.newMessages = new ArrayList<NewMessage>();
   }
 
   public long getId() {
@@ -68,14 +63,5 @@ public class Chat implements Serializable {
   public void setMessages(List<Message> messages) {
     this.messages = messages;
   }
-
-  public List<NewMessage> getNewMessages() {
-    return newMessages;
-  }
-
-  public void setNewMessages(List<NewMessage> newMessages) {
-    this.newMessages = newMessages;
-  }
-
 
 }

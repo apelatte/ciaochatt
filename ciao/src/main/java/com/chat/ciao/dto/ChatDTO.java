@@ -1,9 +1,5 @@
 package com.chat.ciao.dto;
 
-import com.chat.ciao.models.Message;
-import com.chat.ciao.models.NewMessage;
-import com.chat.ciao.models.User;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

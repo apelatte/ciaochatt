@@ -7,6 +7,7 @@ import com.chat.ciao.dto.UserDTO;
 import com.chat.ciao.models.Chat;
 import com.chat.ciao.models.User;
 import com.chat.ciao.services.iChatService;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +36,7 @@ public class ChatServiceImpl implements iChatService {
     List<ChatDTO> chatDTOS = new ArrayList<>();
     if(chatList != null)
       chatList.forEach(chat -> {
+        Hibernate.initialize(chat.getMessages());
         chatDTOS.add(mapToDTO(chat));
       });
     return chatDTOS;
@@ -60,7 +62,9 @@ public class ChatServiceImpl implements iChatService {
     chatDTO.setId(chat.getId());
     chat.setLast_update(chat.getLast_update());
 
+    System.out.println("0000000000000000000");
     chat.getMessages().forEach(message -> {
+      System.out.println("1111111111111111111");
       MessageDTO messageDTO = new MessageDTO();
       messageDTO.setText(message.getText());
       messageDTO.setTime(message.getTime());

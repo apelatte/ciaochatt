@@ -6,5 +6,4 @@ export class Chat{
     last_update!: Date;
     participants!: Array<User>;
     messages!: Array<Message>;
-    newMessages!: Array<Message>;
 }
