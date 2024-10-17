@@ -1,6 +1,7 @@
 package com.chat.ciao.services.impl;
 
 import com.chat.ciao.dao.iMessageDao;
+import com.chat.ciao.dto.MessageDTO;
 import com.chat.ciao.models.Message;
 import com.chat.ciao.services.iMessageService;
 import org.springframework.beans.factory.annotation.Autowired;

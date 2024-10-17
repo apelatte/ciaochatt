@@ -4,20 +4,30 @@ import java.util.Date;
 
 public class MessageDTO {
 
+  private long id;
   private String text;
   private Date time;
-  private long chatID;
   private long fromID;
   private long toID;
+  private long chatID;
 
   public MessageDTO(){}
 
-  public MessageDTO(String text, Date time, long chatID, long fromID, long toID) {
+  public MessageDTO(long id, String text, Date time, long fromID, long toID, long chatID) {
+    this.id = id;
     this.text = text;
     this.time = time;
-    this.chatID = chatID;
     this.fromID = fromID;
     this.toID = toID;
+    this.chatID = chatID;
+  }
+
+  public long getId() {
+    return id;
+  }
+
+  public void setId(long id) {
+    this.id = id;
   }
 
   public String getText() {
@@ -36,14 +46,6 @@ public class MessageDTO {
     this.time = time;
   }
 
-  public long getChatID() {
-    return chatID;
-  }
-
-  public void setChatID(long chatID) {
-    this.chatID = chatID;
-  }
-
   public long getFromID() {
     return fromID;
   }
@@ -58,5 +60,13 @@ public class MessageDTO {
 
   public void setToID(long toID) {
     this.toID = toID;
+  }
+
+  public long getChatID() {
+    return chatID;
+  }
+
+  public void setChatID(long chatID) {
+    this.chatID = chatID;
   }
 }

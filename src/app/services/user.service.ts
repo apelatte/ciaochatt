@@ -29,8 +29,8 @@ export class UserService {
     return this.friendList.asObservable();
   }
 
-  getMyUser(): Observable<User> {
-    return this.http.get<User>(`${this.endpoint}/my-user`);
+  getMyUser(): Observable<any> {
+    return this.http.get<any>(`${this.endpoint}/my-user`);
   }
   
 }

@@ -58,8 +58,8 @@
         </div>
         <div class="input-box">
             <!-- <span class="typing fw-light">Martin esta escribiendo...</span> -->
-            <input type="text" class="fw-light fs-500" placeholder="Escribe tu mensaje...">
-            <img src="../../../assets/send.svg" alt="send">
+            <input type="text" class="fw-light fs-500" placeholder="Escribe tu mensaje..." (keyup.enter)="sendMessage(message)"  #message>
+            <img src="../../../assets/send.svg" alt="send" (click)="sendMessage(message)">
         </div>
     </form>
 </div>

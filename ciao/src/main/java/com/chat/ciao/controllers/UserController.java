@@ -57,7 +57,8 @@ public class UserController {
     Map<String, Object> response = new HashMap<>();
     try {
       User user = this.userSvc.getByUsername(principal.getName());
-      response.put("myUser", user);
+      UserDTO userDTO = this.userSvc.mapToDTO(user);
+      response.put("myUser", userDTO);
     } catch (Exception e) {
       response.put("error", e.getMessage());
       return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);

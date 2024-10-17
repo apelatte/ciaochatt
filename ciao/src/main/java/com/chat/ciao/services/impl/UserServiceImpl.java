@@ -1,6 +1,7 @@
 package com.chat.ciao.services.impl;
 
 import com.chat.ciao.dao.iUserDao;
+import com.chat.ciao.dto.UserDTO;
 import com.chat.ciao.models.User;
 import com.chat.ciao.services.iUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +39,14 @@ public class UserServiceImpl implements iUserService {
   public User delete(User user) {
     this.userDao.delete(user);
     return user;
+  }
+
+  @Override
+  public UserDTO mapToDTO(User user){
+    UserDTO response = new UserDTO();
+    response.setId(user.getId());
+    response.setUsername(user.getUsername());
+    response.setAvatar(user.getAvatar());
+    return response;
   }
 }

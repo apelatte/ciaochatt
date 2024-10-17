@@ -1,5 +1,6 @@
 package com.chat.ciao.services;
 
+import com.chat.ciao.dto.MessageDTO;
 import com.chat.ciao.models.Message;
 
 import java.util.List;

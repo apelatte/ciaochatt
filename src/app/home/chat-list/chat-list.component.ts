@@ -17,6 +17,10 @@ export class ChatListComponent implements OnInit {
   constructor(private chatService: ChatService) { }
 
   ngOnInit(): void {
+    this.initChat();
+  }
+
+  initChat(): void {
     this.getMyChats();
   }
 
@@ -25,7 +29,15 @@ export class ChatListComponent implements OnInit {
       next: (res) => {
         this.chatList = res.chatList
         this.focus = this.chatList.at(0)!;
+        this.chatService.setChatFocus(this.focus);
+        this.getFocus();
       }
+    });
+  }
+
+  getFocus(): void {
+    this.chatService.getChatFocus().subscribe({
+      next: (chat) => this.focus = chat
     });
   }
 

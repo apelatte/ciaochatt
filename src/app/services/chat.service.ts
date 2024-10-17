@@ -2,9 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { Chat } from '../models/Chat';
-import { User } from '../models/User';
 import SockJS from 'sockjs-client';
-import { CompatClient, Stomp } from '@stomp/stompjs';
+import { Stomp } from '@stomp/stompjs';
 import { Message } from '../models/Message';
 
 @Injectable({
@@ -14,26 +13,51 @@ export class ChatService {
 
   private endpoint: String = "http://localhost:8080/api/chat"
   private chatFocus = new Subject<Chat>();
-  private stompClient!: CompatClient;
+  private stompClient: any;
+  private isConnected!: boolean;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.initConnectionSocket();
+  }
 
-  initConnectionSocket(){
-    const url = '//localhost:3000/chat-socket';
+  initConnectionSocket() {
+    const url = 'http://localhost:8080/chat-socket';
     const socket = new SockJS(url);
     this.stompClient = Stomp.over(socket);
   }
 
-  joinRoom(roomId: string){
-    this.stompClient.connect({}, () => {
-      this.stompClient.subscribe(`/topic/${roomId}`, (messages: any) => {
-        const messageContent = JSON.parse(messages.body);
-        console.log(messageContent);
-      })
-    })
+  connect(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      if (this.isConnected) {
+        resolve(); // Si ya está conectado, resolver inmediatamente
+        return;
+      }
+
+      const socket = new SockJS('http://localhost:8080/chat-socket'); // URL del WebSocket
+      this.stompClient = Stomp.over(socket);
+
+      this.stompClient.connect({}, (frame: any) => {
+        console.log('Conectado: ' + frame);
+        this.isConnected = true;
+        resolve(); // Resolver la promesa cuando la conexión esté establecida
+      }, (error: any) => {
+        console.error('Error al conectar WebSocket:', error);
+        reject(error); // Rechazar la promesa si ocurre un error en la conexión
+      });
+    });
   }
 
-  sendMessage(roomId: string, message: Message){
+  joinRoom(roomId: number): void {
+    if (this.isConnected) {
+      this.stompClient.subscribe(`/topic/chat/${roomId}`, (message: any) => {
+        console.log(`Joined room ${roomId}, Message:`, message.body);
+      });
+    } else {
+      console.error('No se puede unir a la room. No hay conexión establecida.');
+    }
+  }
+
+  sendMessage(roomId: number, message: Message) {
     this.stompClient.send(`/app/chat/${roomId}`, {}, JSON.stringify(message))
   }
 
@@ -45,7 +69,8 @@ export class ChatService {
     this.chatFocus.next(chat);
   }
 
-  getChatFocus(): Observable<Chat>{
+  getChatFocus(): Observable<Chat> {
     return this.chatFocus.asObservable();
   }
+
 }

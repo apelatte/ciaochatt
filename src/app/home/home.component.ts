@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
+import { User } from '../models/User';
 
 @Component({
   selector: 'app-home',
@@ -11,11 +12,13 @@ export class HomeComponent implements OnInit{
 
   navInput: boolean = false;
   addFriend: boolean = false;
+  myUser!: User;
 
   constructor(private authService: AuthService, private userService: UserService){}
 
   ngOnInit(): void {
     if(!this.authService.getToken()) this.authService.logout();
+    this.userService.getMyUser().subscribe(res => this.myUser = res.myUser);
   }
 
   toogleNavInput(mode: boolean){

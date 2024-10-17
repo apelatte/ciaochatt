@@ -37,7 +37,7 @@ public class WebSecurityConfig {
       .httpBasic(Customizer.withDefaults())
       .sessionManagement(sessionManager -> sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
       .authorizeHttpRequests((requests) -> requests
-        .requestMatchers("/auth/**").permitAll()
+        .requestMatchers("/auth/**", "/chat-socket/**").permitAll()
         .requestMatchers("/api/users/**",
             "/api/chat/**",
             "/home").hasRole("USER")

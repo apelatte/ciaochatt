@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ChatService } from '../../services/chat.service';
 import { User } from '../../models/User';
 import { Chat } from '../../models/Chat';
+import { Message } from '../../models/Message';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-chat',
@@ -10,14 +12,44 @@ import { Chat } from '../../models/Chat';
 })
 export class ChatComponent implements OnInit {
 
-  focus!: User;
-  myChats!: Array<Chat>;
+  @Input() myUser!: User;
   currentChat!: Chat;
 
   constructor(private chatService: ChatService) { }
 
   ngOnInit() {
-    
+    this.initChat();
+  } 
+
+  initChat(): void {
+    this.getChatFocus();
   }
 
+  getChatFocus(): void {
+    this.chatService.getChatFocus().subscribe({
+      next: (chat) => {
+        if (chat && chat.id) {
+          this.currentChat = chat;
+          console.log(this.currentChat);
+          this.chatService.connect().then(() => {
+            this.chatService.joinRoom(chat.id);
+          });
+        }
+      }
+    });
+  }
+
+  sendMessage(element: any): void {
+    console.log(this.myUser.id);
+    const message: String = element.value;
+    const newMessage: Message = {
+      text: message,
+      fromID: this.myUser.id,
+      toID: this.currentChat.friend.id,
+      chatID: this.currentChat.id,
+      time: new Date()
+    } as Message;
+    this.chatService.sendMessage(this.currentChat.id, newMessage);
+    element.value = ""
+  }
 }
