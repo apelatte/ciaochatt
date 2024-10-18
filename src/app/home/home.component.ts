@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { User } from '../models/User';
+import { ChatService } from '../services/chat.service';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,7 @@ export class HomeComponent implements OnInit{
   addFriend: boolean = false;
   myUser!: User;
 
-  constructor(private authService: AuthService, private userService: UserService){}
+  constructor(private authService: AuthService, private userService: UserService, private chatService: ChatService){}
 
   ngOnInit(): void {
     if(!this.authService.getToken()) this.authService.logout();
@@ -32,7 +33,7 @@ export class HomeComponent implements OnInit{
     if(this.addFriend) 
       this.userService.addFriend(friendUsername).subscribe({
         next: (res) => {
-          this.userService.updateFriendList(res.friendList);
+          this.chatService.addChat(res.newChat);
         }
       })
     

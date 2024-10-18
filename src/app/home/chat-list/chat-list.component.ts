@@ -18,6 +18,7 @@ export class ChatListComponent implements OnInit {
 
   ngOnInit(): void {
     this.initChat();
+    this.listenerChats();
   }
 
   initChat(): void {
@@ -30,9 +31,14 @@ export class ChatListComponent implements OnInit {
         this.chatList = res.chatList
         this.focus = this.chatList.at(0)!;
         this.chatService.setChatFocus(this.focus);
+        this.chatService.setChatList(this.chatList);
         this.getFocus();
       }
     });
+  }
+
+  listenerChats(): void {
+    this.chatService.getChatList().subscribe(chatList => this.chatList = chatList)
   }
 
   getFocus(): void {

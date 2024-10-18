@@ -9,7 +9,6 @@ import { User } from '../models/User';
 export class UserService {
 
   private endpoint: String = "http://localhost:8080/api/users"
-  private friendList = new Subject<Array<User>>();
 
   constructor(private http: HttpClient) { }
 
@@ -19,14 +18,6 @@ export class UserService {
 
   getFriends(): Observable<any> {
     return this.http.get(`${this.endpoint}/friends`);
-  }
-
-  updateFriendList(newFriendList: Array<User>): void {
-    this.friendList.next(newFriendList);
-  }
-
-  getFriendList(): Observable<Array<User>> {
-    return this.friendList.asObservable();
   }
 
   getMyUser(): Observable<any> {

@@ -1,5 +1,6 @@
 package com.chat.ciao.controllers;
 
+import com.chat.ciao.dto.ChatDTO;
 import com.chat.ciao.dto.UserDTO;
 import com.chat.ciao.models.Chat;
 import com.chat.ciao.models.User;
@@ -104,13 +105,14 @@ public class UserController {
       myUser.getFriends().add(newFriend);
 
       Chat newChat = new Chat(List.of(myUser, newFriend));
-      this.chatService.save(newChat);
+      newChat = this.chatService.save(newChat);
+      ChatDTO chatDTO = this.chatService.mapToDTO(newChat);
       myUser.getChats().add(newChat);
       newFriend.getChats().add(newChat);
 
       myUser = this.userSvc.save(myUser);
       this.userSvc.save(newFriend);
-      response.put("friendList", myUser.getFriends());
+      response.put("newChat", chatDTO);
     } catch (Exception e) {
       response.put("error", e.getMessage());
       return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
