@@ -34,4 +34,14 @@ public class MessageServiceImpl implements iMessageService {
   public void delete(Message message) {
     this.messageDao.delete(message);
   }
+
+  @Override
+  public MessageDTO mapToDTO(Message message) {
+    MessageDTO response = new MessageDTO();
+    response.setFromID(message.getFrom().getId());
+    response.setTime(message.getTime());
+    response.setText(message.getText());
+    response.setToID(message.getTo().getId());
+    return response;
+  }
 }

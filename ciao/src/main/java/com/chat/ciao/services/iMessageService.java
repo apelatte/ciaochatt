@@ -11,4 +11,5 @@ public interface iMessageService {
   Message findById(long id);
   Message save(Message message);
   void delete(Message message);
+  MessageDTO mapToDTO(Message message);
 }

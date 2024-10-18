@@ -17,7 +17,9 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -50,9 +52,7 @@ public class WebSocketController {
       currentChat.getMessages().add(newMessage);
       currentChat = this.chatService.save(currentChat);
 
-      ChatDTO chatDTO = this.chatService.mapToDTO(currentChat);
-
-      response.put("chat", chatDTO);
+      response.put("message", message);
     } catch (Exception e){
       response.put("error", e.getMessage());
       return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);

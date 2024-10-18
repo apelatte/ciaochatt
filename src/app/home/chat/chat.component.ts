@@ -20,34 +20,28 @@ export class ChatComponent implements OnInit {
 
   ngOnInit() {
     this.initChat();
+    this.listenerMessages();
   }
 
   initChat(): void {
-    this.getChatFocus();
+    this.joinRoom();
   }
-
-  getChatFocus(): void {
+  
+  joinRoom(): void {
     this.chatService.getChatFocus().subscribe({
       next: (chat) => {
         if (chat && chat.id) {
           this.currentChat = chat;
           this.friend = this.currentChat.participants.find(user => user.id != this.myUser.id)!;
-          this.chatService.connect().then(() => {
-            this.chatService.joinRoom(chat.id);
-          });
+          this.chatService.joinRoom(chat.id);
         }
       }
     });
   }
 
-  setFriend(): void {
-
-  }
-
   sendMessage(element: any): void {
-    console.log(this.myUser.id);
     const message: String = element.value;
-    const friend: User = this.currentChat.participants.filter(el => el.id != this.myUser.id).at(0)!;
+    const friend: User = this.currentChat.participants.find(el => el.id != this.myUser.id)!;
     const newMessage: Message = {
       text: message,
       fromID: this.myUser.id,
@@ -62,5 +56,13 @@ export class ChatComponent implements OnInit {
   getMessageAuthor(message: Message): string {
     const author: String = message.fromID == this.myUser.id ? this.myUser.username : this.friend.username;
     return author as string;
+  }
+
+  listenerMessages(): void {
+    this.chatService.getMessageSubject().subscribe({
+      next: (message) => {
+        if(this.currentChat) this.currentChat.messages.push(message);
+      }
+    });
   }
 }
