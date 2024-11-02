@@ -33,8 +33,7 @@ export class ChatComponent implements OnInit {
         if (chat && chat.id) {
           this.currentChat = chat;
           this.friend = this.currentChat.participants.find(user => user.id != this.myUser.id)!;
-          this.chatService.connectSocket();
-          this.chatService.joinRoom(chat.id);
+          this.chatService.connectSocket(() => this.chatService.joinRoom(chat.id));
         }
       }
     });

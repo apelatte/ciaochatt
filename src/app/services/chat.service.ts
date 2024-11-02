@@ -29,8 +29,17 @@ export class ChatService {
     this.stompClient = Stomp.over(socket);
   }
 
-  connectSocket(): void {
-    if(!this.isConnected) this.stompClient.connect({}, () => { this.isConnected = true });
+  connectSocket(onConnected?: () => void): void {
+    if (!this.isConnected) {
+      this.stompClient.connect({}, () => {
+        this.isConnected = true;
+        if (onConnected) {
+          onConnected(); // Execute the callback once connected
+        }
+      });
+    } else if (onConnected) {
+      onConnected(); // If already connected, execute the callback immediately
+    }
   }
 
   disconnectSocket(): void {
