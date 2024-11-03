@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
 import { Chat } from '../models/Chat';
 import SockJS from 'sockjs-client';
 import { CompatClient, Stomp } from '@stomp/stompjs';
@@ -18,6 +18,7 @@ export class ChatService {
   private stompClient: any;
   private messageSubject = new BehaviorSubject<Message[]>([]);
   private isConnected: boolean = false;
+  private currentSubscription: Subscription | null = null;
 
   constructor(private http: HttpClient) {
     this.initConnectionSocket();
@@ -43,12 +44,15 @@ export class ChatService {
   }
 
   disconnectSocket(): void {
-    this.stompClient.disconnect({}, () => { this.isConnected = false });
+    this.stompClient.disconnect({}, () => { 
+      this.isConnected = false 
+    });
   }
 
   joinRoom(roomId: number) {
     if (this.isConnected) {
-      this.stompClient.subscribe(`/topic/${roomId}`, (res: any) => {
+      this.currentSubscription?.unsubscribe();
+      this.currentSubscription = this.stompClient.subscribe(`/topic/${roomId}`, (res: any) => {
         const response = JSON.parse(res.body);
         const message = response.body.message;
         this.messageSubject.next(message);

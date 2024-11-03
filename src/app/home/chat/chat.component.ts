@@ -1,20 +1,21 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ChatService } from '../../services/chat.service';
 import { User } from '../../models/User';
 import { Chat } from '../../models/Chat';
 import { Message } from '../../models/Message';
-import { Subject } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css'
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, OnDestroy {
 
   @Input() myUser!: User;
   currentChat!: Chat;
   friend!: User;
+  private currentObserver!: Subscription | null;  
 
   constructor(private chatService: ChatService) { }
 
@@ -59,10 +60,15 @@ export class ChatComponent implements OnInit {
   }
 
   listenerMessages(): void {
-    this.chatService.getMessageSubject().subscribe({
+    this.currentObserver = this.chatService.getMessageSubject().subscribe({
       next: (message) => {
+        console.log(message);
         if(this.currentChat) this.currentChat.messages.push(message);
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.currentObserver?.unsubscribe();
   }
 }
