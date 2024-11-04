@@ -26,14 +26,14 @@ public class AuthController {
   }
 
   @PostMapping("/sign-up")
-  public ResponseEntity<?> loginUser(@RequestBody RegisterRequest request) {
+  public ResponseEntity<?> registerUser(@RequestBody RegisterRequest request) {
     Map<String, Object> response = new HashMap<>();
     try {
       User userCreated = this.userDetailsService.createUser(request);
       response.put("userCreated", userCreated);
     } catch (Exception e) {
       response.put("error", e.getMessage());
-      return new ResponseEntity<>(response, HttpStatus.OK);
+      return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
     return new ResponseEntity<>(response, HttpStatus.OK);
   }

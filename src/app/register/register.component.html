@@ -16,7 +16,9 @@
                 <input type="password" class="fs-600" placeholder="Repite la contraseña" formControlName="repassword">
             </div>
             <button class="mt-3 fs-700 fw-medium">Registrarse <img *ngIf="false" src="../../assets/loader.svg" alt="loader"></button>
-            <!-- <span class="error">El nombre de usuario o la contraseña son incorrectos.</span> -->
+            <p class="error" *ngIf="error">{{error}}</p>
+            <p class="error" *ngIf="!error && !passwordsMatches">Las contraseñas no coinciden.</p>
+            <p class="error" *ngIf="!error && passwordsMatches && errorPasswordLength">Las contraseñas deben contener un mínimo de 6 caracteres.</p>
         </form>
         <p class="fs-600 mt-1">Ya tienes una cuenta? <a routerLink="/login">Inicia sesión</a></p>
     </div>

@@ -78,9 +78,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     return new UsernamePasswordAuthenticationToken(username, userDetails.getPassword(), userDetails.getAuthorities());
   }
 
-  public User createUser(RegisterRequest request){
+  public User createUser(RegisterRequest request) throws Exception {
     Rol rol = this.rolDao.findByRolEnum(RolEnum.USER).orElse(null);
     User user = new User();
+    User existUsername = this.userDao.findByUsername(request.getUsername().trim()).orElse(null);
+    if(existUsername != null) throw new Exception("El nombre de usuario no está disponible.");
     user.setUsername(request.getUsername().toLowerCase().trim());
     user.setPassword(passwordEncoder.encode(request.getPassword()));
     user.setAvatar(request.getAvatar());

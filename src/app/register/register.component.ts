@@ -12,6 +12,9 @@ import { Router } from '@angular/router';
 export class RegisterComponent implements OnInit {
 
   myForm!: FormGroup;
+  passwordsMatches: boolean = true;
+  errorPasswordLength: boolean = false;
+  error: String | null = null;
 
   constructor(private authService: AuthService, private fb: FormBuilder, private router: Router) {
     this.myForm = this.fb.group({
@@ -22,12 +25,15 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+
   }
 
   register(): void {
-    let passwordsMatches = this.myForm.get('password')!.value == this.myForm.get('repassword')!.value;
-    if (this.myForm.valid && passwordsMatches) {
+    this.resetErrors();
+
+    this.passwordsMatches = this.myForm.get('password')!.value == this.myForm.get('repassword')!.value;
+
+    if (this.myForm.valid && this.passwordsMatches) {
       let newUser: RegisterRequest = {
         username: this.myForm.get('username')!.value,
         password: this.myForm.get('password')!.value,
@@ -36,8 +42,17 @@ export class RegisterComponent implements OnInit {
       this.authService.register(newUser).subscribe({
         next: (res) => {
           this.router.navigate(["/login"]);
-        }
+        },
+        error: (res) => this.error = res.error.error
       });
     }
+    else if (!this.passwordsMatches) this.passwordsMatches = false;
+    else if (this.myForm.get('password')!.hasError('minlength')) this.errorPasswordLength = true;
+  }
+
+  resetErrors(): void {
+    this.passwordsMatches = true;
+    this.errorPasswordLength = false;
+    this.error = null;
   }
 }
