@@ -105,6 +105,7 @@ public class UserController {
       myUser.getFriends().add(newFriend);
 
       Chat newChat = new Chat(List.of(myUser, newFriend));
+      newChat.setLast_update(new Date());
       newChat = this.chatService.save(newChat);
       ChatDTO chatDTO = this.chatService.mapToDTO(newChat);
       myUser.getChats().add(newChat);

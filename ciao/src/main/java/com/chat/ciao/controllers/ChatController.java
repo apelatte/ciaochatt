@@ -11,9 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("api/chat")
@@ -45,6 +43,7 @@ public class ChatController {
     try{
       User myUser = this.userService.getByUsername(principal.getName());
       List<ChatDTO> chats = this.chatService.findAllByUserId(myUser.getId());
+      chats.sort(Comparator.comparing(ChatDTO::getLast_update).reversed());
       response.put("chatList", chats);
     } catch (Exception e){
       response.put("error", e.getMessage());

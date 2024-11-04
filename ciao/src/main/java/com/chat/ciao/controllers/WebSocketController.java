@@ -17,10 +17,7 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class WebSocketController {
@@ -42,6 +39,7 @@ public class WebSocketController {
       User myUser = this.userService.getById(message.getFromID());
       User friend = this.userService.getById(message.getToID());
       Chat currentChat = this.chatService.findById(message.getChatID());
+      currentChat.setLast_update(new Date());
 
       Message newMessage = new Message();
       newMessage.setText(message.getText());

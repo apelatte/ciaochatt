@@ -60,7 +60,7 @@ public class ChatServiceImpl implements iChatService {
   public ChatDTO mapToDTO(Chat chat){
     ChatDTO chatDTO = new ChatDTO();
     chatDTO.setId(chat.getId());
-    chat.setLast_update(chat.getLast_update());
+    chatDTO.setLast_update(chat.getLast_update());
 
     chat.getMessages().forEach(message -> {
       MessageDTO messageDTO = new MessageDTO();

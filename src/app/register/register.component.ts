@@ -24,9 +24,7 @@ export class RegisterComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   register(): void {
     this.resetErrors();
@@ -40,9 +38,7 @@ export class RegisterComponent implements OnInit {
         avatar: 'avatar1'
       }
       this.authService.register(newUser).subscribe({
-        next: (res) => {
-          this.router.navigate(["/login"]);
-        },
+        next: () => this.router.navigate(["/login"]),
         error: (res) => this.error = res.error.error
       });
     }

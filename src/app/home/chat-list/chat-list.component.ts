@@ -29,7 +29,7 @@ export class ChatListComponent implements OnInit {
   getMyChats(): void {
     this.chatService.getMyChats().subscribe({
       next: (res) => {
-        this.chatList = res.chatList
+        this.chatList = res.chatList;
         this.focus = this.chatList.at(0)!;
         this.chatService.setChatFocus(this.focus);
         this.chatService.setChatList(this.chatList);
