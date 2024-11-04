@@ -102,6 +102,12 @@ public class UserController {
     try {
       User myUser = this.userSvc.getByUsername(principal.getName());
       User newFriend = this.userSvc.getByUsername(friendUsername.toLowerCase().trim());
+      
+      if(newFriend == null) throw new Exception("El usuario no existe.");
+      if(myUser.getFriends().contains(newFriend)) throw new Exception("La relación ya existe");
+      if(myUser.getUsername().equals(newFriend.getUsername())) throw new Exception("Está acción no es posible.");
+
+
       myUser.getFriends().add(newFriend);
 
       Chat newChat = new Chat(List.of(myUser, newFriend));

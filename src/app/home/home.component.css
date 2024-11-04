@@ -20,22 +20,22 @@
     height: 2rem;
 }
 
-.chat-nav img:first-child{
+.chat-nav img:first-child {
     margin-left: 2rem;
 }
 
-.chat-nav > img{
+.chat-nav>img {
     padding: .3125rem;
     border-radius: 50px;
     overflow: visible;
 }
 
-.chat-nav>img:hover{
+.chat-nav>img:hover {
     cursor: pointer;
     background-color: var(--clr-bttn);
 }
 
-.chat-nav input{
+.chat-nav input {
     width: 100%;
     height: 100%;
     border-radius: 50px;
@@ -44,7 +44,7 @@
     border: none;
 }
 
-.close-input{
+.close-input {
     position: absolute;
     right: 0;
     top: 100;
@@ -52,7 +52,7 @@
     border-radius: 50px;
 }
 
-.close-input:hover{
+.close-input:hover {
     cursor: pointer;
 }
 
@@ -81,4 +81,29 @@
 .chat {
     height: 100%;
     width: 70%;
+}
+
+.chat-nav img {
+    position: relative;
+}
+
+.tooltip {
+    position: absolute;
+    padding: 0 .5rem;
+    top: -80%;
+    background-color: lightgrey;
+    cursor: pointer;
+    visibility: hidden;
+    z-index: 100;
+}
+
+.tooltip.visible {
+    visibility: visible;
+}
+
+.error {
+    position: absolute;
+    top: -100%;
+    left: 15%;
+    z-index: 1;
 }

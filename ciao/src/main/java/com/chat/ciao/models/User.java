@@ -31,7 +31,7 @@ public class User implements Serializable {
   @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   private Rol rol;
 
-  @OneToMany(fetch = FetchType.LAZY)
+  @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(
     name = "users_friends",
     joinColumns = @JoinColumn(name = "user_id"),
