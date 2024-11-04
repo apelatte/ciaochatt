@@ -41,3 +41,8 @@
 ::-webkit-scrollbar-thumb:hover {
     cursor: pointer;
 }
+
+.no-friends{
+    text-align: center;
+    margin-right: 1rem;
+}

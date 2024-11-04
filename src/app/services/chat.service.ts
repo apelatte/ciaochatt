@@ -47,12 +47,14 @@ export class ChatService {
   }
 
   disconnectSocket(): void {
-    this.stompClient.disconnect(() => {
-      this.isConnected = false
-      this.currentSubscription?.unsubscribe();
-      this.currentSubscription = null
-      this.stompClient = null;
-    });
+    if (this.isConnected) {
+      this.stompClient.disconnect(() => {
+        this.isConnected = false
+        this.currentSubscription?.unsubscribe();
+        this.currentSubscription = null
+        this.stompClient = null;
+      });
+    }
   }
 
   joinRoom(roomId: number) {

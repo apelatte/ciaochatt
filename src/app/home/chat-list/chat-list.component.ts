@@ -12,6 +12,7 @@ export class ChatListComponent implements OnInit {
 
   @Input() myUser!: User;
   chatList!: Array<Chat>;
+  chatListLength: number = 0;
   focus!: Chat;
 
   constructor(private chatService: ChatService) { }
@@ -33,12 +34,16 @@ export class ChatListComponent implements OnInit {
         this.chatService.setChatFocus(this.focus);
         this.chatService.setChatList(this.chatList);
         this.getFocus();
+        this.chatListLength = this.chatList.length;
       }
     });
   }
 
   listenerChats(): void {
-    this.chatService.getChatList().subscribe(chatList => this.chatList = chatList)
+    this.chatService.getChatList().subscribe(chatList => {
+      this.chatList = chatList;
+      this.chatListLength = this.chatList.length;
+    })
   }
 
   getFocus(): void {
