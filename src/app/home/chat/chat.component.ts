@@ -62,7 +62,6 @@ export class ChatComponent implements OnInit, OnDestroy {
   listenerMessages(): void {
     this.currentObserver = this.chatService.getMessageSubject().subscribe({
       next: (message) => {
-        console.log(message);
         if(this.currentChat) this.currentChat.messages.push(message);
       }
     });
@@ -70,5 +69,6 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.currentObserver?.unsubscribe();
+    this.chatService.disconnectSocket();
   }
 }

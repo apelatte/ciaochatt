@@ -115,3 +115,14 @@
 ::-webkit-scrollbar-thumb:hover {
     cursor: pointer;
 }
+
+.no-chat{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 2rem;
+    width: 80%;
+    margin: auto;
+}

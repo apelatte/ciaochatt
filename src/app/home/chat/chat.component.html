@@ -1,65 +1,18 @@
 <div class="wrapper">
-    <form class="chat">
+    <form class="chat" *ngIf="currentChat">
         <div class="message-list" *ngIf="currentChat">
             <div class="content">
                 <div *ngFor="let message of currentChat.messages; let i = index" class="message"
                     [class.my]="message.fromID == myUser.id">
                     <p class="fw-light name" *ngIf="i === 0 || message.fromID !== currentChat.messages[i - 1].fromID">
                         <!-- //Only show the author if it is the first in the sequence -->
-                        {{getMessageAuthor(message) | titlecase}}</p>
+                        {{getMessageAuthor(message) | titlecase}}
+                    </p>
                     <div class="text" [class.sequence]="i != 0 && message.fromID == currentChat.messages[i - 1].fromID">
                         <p>{{message.text}}</p>
                     </div>
                 </div>
             </div>
-            <!-- <div class="my message">
-                <p class="fw-light name">Tú</p>
-                <div class="text">
-                    <p>Hola Martin, bien y vos?</p>
-                </div>
-            </div>
-            <div class="message">
-                <p class="fw-light name">Martin</p>
-                <div class="text">
-                    <p>Bien por suerte, estudiando para el examen</p>
-                </div>
-            </div>
-            <div class="message">
-                <p class="fw-light name">Martin</p>
-                <div class="text">
-                    <p>Has hecho lo que había para el lunes?</p>
-                </div>
-            </div>
-            <div class="my message">
-                <p class="fw-light name">Tú</p>
-                <div class="text">
-                    <p>Ah que bueno! Si, he hecho lo que había que hacer para el lunes, necesitas ayuda?</p>
-                </div>
-            </div>
-            <div class="my message">
-                <p class="fw-light name">Tú</p>
-                <div class="text">
-                    <p>Ah que bueno! Si, he hecho lo que había que hacer para el lunes, necesitas ayuda?</p>
-                </div>
-            </div>
-            <div class="my message">
-                <p class="fw-light name">Tú</p>
-                <div class="text">
-                    <p>Ah que bueno! Si, he hecho lo que había que hacer para el lunes, necesitas ayuda?</p>
-                </div>
-            </div>
-            <div class="my message">
-                <p class="fw-light name">Tú</p>
-                <div class="text">
-                    <p>Ah que bueno! Si, he hecho lo que había que hacer para el lunes, necesitas ayuda?</p>
-                </div>
-            </div>
-            <div class="my message">
-                <p class="fw-light name">Tú</p>
-                <div class="text">
-                    <p>Ah que bueno! Si, he hecho lo que había que hacer para el lunes, necesitas ayuda?</p>
-                </div>
-            </div> -->
         </div>
         <div class="input-box" *ngIf="currentChat">
             <!-- <span class="typing fw-light">Martin esta escribiendo...</span> -->
@@ -68,4 +21,8 @@
             <img src="../../../assets/send.svg" alt="send" (click)="sendMessage(message)">
         </div>
     </form>
+    <div class="no-chat" *ngIf="!currentChat">
+        <img src="assets/iMessage.svg" alt="message">
+        <p class="fs-700 fw-regular">Aún no tienes conversaciones. ¡Inicia una nueva para comenzar a chatear!</p>
+    </div>
 </div>

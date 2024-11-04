@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
 import { Chat } from '../models/Chat';
 import SockJS from 'sockjs-client';
-import { CompatClient, Stomp } from '@stomp/stompjs';
+import { Stomp } from '@stomp/stompjs';
 import { Message } from '../models/Message';
+import { environment } from '../../enviroments/enviroment';
 
 @Injectable({
   providedIn: 'root'
@@ -19,19 +20,21 @@ export class ChatService {
   private messageSubject = new BehaviorSubject<Message[]>([]);
   private isConnected: boolean = false;
   private currentSubscription: Subscription | null = null;
+  private socketUrl = 'http://localhost:8080/chat-socket'
 
   constructor(private http: HttpClient) {
-    this.initConnectionSocket();
   }
 
   initConnectionSocket() {
-    const url = 'http://localhost:8080/chat-socket';
-    const socket = new SockJS(url);
+    const socket = new SockJS(this.socketUrl);
     this.stompClient = Stomp.over(socket);
   }
 
   connectSocket(onConnected?: () => void): void {
     if (!this.isConnected) {
+      const socket = new SockJS(this.socketUrl);
+      this.stompClient = Stomp.over(socket);
+      if (environment.production) this.stompClient.debug = () => { }; // Disable debugging in production
       this.stompClient.connect({}, () => {
         this.isConnected = true;
         if (onConnected) {
@@ -44,8 +47,11 @@ export class ChatService {
   }
 
   disconnectSocket(): void {
-    this.stompClient.disconnect({}, () => { 
-      this.isConnected = false 
+    this.stompClient.disconnect(() => {
+      this.isConnected = false
+      this.currentSubscription?.unsubscribe();
+      this.currentSubscription = null
+      this.stompClient = null;
     });
   }
 
