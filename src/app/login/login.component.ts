@@ -13,6 +13,7 @@ export class LoginComponent {
 
   loginRequest!: LoginRequest;
   myForm!: FormGroup;
+  error: boolean = false;
 
   constructor(private authService: AuthService, private fb: FormBuilder, private router: Router) {
     this.myForm = this.fb.group({
@@ -22,13 +23,15 @@ export class LoginComponent {
   }
 
   login(): void {
+    this.error = false;
     if (this.myForm.valid) {
       this.loginRequest = this.myForm.value;
       this.authService.login(this.loginRequest).subscribe({
         next: (res) => {
           this.authService.setToken(res.token)
           this.router.navigate(["/"]);
-        }
+        },
+        error: (res) => this.error = true,
       });
     }
   }
